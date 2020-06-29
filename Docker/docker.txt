@@ -1,0 +1,277 @@
+ #Apuntes sobre Curso básico sobre Docker
+ #Rafael Rodríguez Calvente
+
+
+
+----------------------
+¿POR QUÉ USAR DOCKER? |
+---------------------------------------------------------------------------------------------------------------------------
+Cuando despliego una aplicación en un servidor deseamos tener la plena garantía de que todo va a funcionar de la misma manera
+en la que lo hemos testeado. Si desplegamos una aplicación en una máquina donde no tengo plenas garantías de las veriones de
+los servicios/libreras/sistema operativo etc.. que tenemos instalado, nunca estaremos probando la realidad que luego se va a
+estar ejecutando en producción. Podríamos decir que un contenedor contiene todo lo que la aplicación necesita para ser 
+ejecutada, de modo que cuando estamos probando esa aplicación en local se está haciendo sobre el mismo código que se va a
+ejecutar cuando la aplicación esté en producción. Hemos de tener en cuenta que existen hosting compartidos, es decir, el
+mismo servidor esta compartido por diferentes aplicaciones, esto podría dar problemas en el sentido de que se realice una
+actualización de java (por poner un ejemplo), lo cual nos podra terminar afectando.
+---------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+ ---------------------------------------------------------------------------------------
+|				  INSTALACIÓN (ubuntu)				        |
+ ---------------------------------------------------------------------------------------
+
+
+
+
+Para buscar la versión más actualizada ponemos en google: "get.docker.com"
+Nos aparecerá un script que nos indicará como descargarlo
+
+Tras la instalación escribimos en la terminal:
+
+#sudo usermod -aG docker rafa
+para dar permisos a mi usuario
+
+Para verificar la instalación de docker podemos usar los comandos: 
+#docker info 
+#docker version:
+
+Para no tener que usar sudo en cada instrucción docker escribimos en la terminal:
+#newgrp docker
+
+Tras ello comprobamos que ya podemos usar docker sin sudo:
+#docker run hello-worl
+
+
+
+
+ ---------------------------------------------------------------------------------------
+|				  CONTENEDORES vs IMÁGENES:                             |
+ ---------------------------------------------------------------------------------------
+
+IMÁGENES: plantilla de solo lectura vacía o con una aplicación preinstalada para la creación de contenedores. Es creada por nosotros o por la comunidad (Docker Hub)(Docker search). Cada imagen (existen muchas) se usan con diferentes objetivos o para diferentes funciones ya instaladas con las cuales podremos crear nuestros contenedores.
+
+Para ver las opciones que tenemos para trabajar con las imágenes:
+#docker images --help
+
+Para ver las opciones que tenemos para trabajar con los containers:
+#docker ps --help
+
+EN HUB.DOCKER.COM podremos encontrar todas las imágenes que podremos descargar para usarlas
+ó
+también podemos escribir en la terminal el comando #docker search 
+
+Para descargar la iamgen oficial de ubuntu escribimos en la terminal:
+#docker pull ubuntu
+*Esta imagen fue contruida con la finalidad de poder disponer de la bash de ubuntu
+*Cada imagen está diseñada para un uso/finalidad en específico
+
+Para comprobar las imágenes disponibles:
+#docker images
+
+
+CONTENEDORES: Contiene lo necesario para ejecutar nuestras aplicaciones. Basados en una o más imágenes.
+
+
+
+
+ ---------------------------------------------------------------------------------------
+|					  TAGS                                          |
+ ---------------------------------------------------------------------------------------
+
+
+-Son las versiones de las imágenes. A medida que se van creando nueas librerías podremos ir creando nuevos tags.
+
+Para buscar una version de una imagen en concreto de la imagen de ubuntu oficial ponemos:
+#docker search ubuntu:14.04 (se usa los dos puntos para indicar el tag)
+
+Para descargar dicha versión ponemos:
+#docker pull ubuntu:14.04
+
+
+
+ -------------------------------------------------------------------------------------
+|				      HOLA MUNDO:				      |
+ -------------------------------------------------------------------------------------
+Descargamos la imagen:
+#docker pull hello-world
+
+Ejecutamos la imagen en un container:
+#docker run hello-world
+
+Para ver los containers que tenemos en ejecución:
+#docker run "nombre-container"
+
+Los containers están hechos para realizar una función en específico, en este caso, la imagen hello-world que corre en este container está hecho para que imprima por terminal el mensaje:
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+Para verificar que estamos corriendo correctamente la imagen.
+
+
+Para ver los containers que se han creado para correr alguna imagen pero ya han podido parar de ejcutarse usamos el comando:
+#docker ps -a (lista los containers que están ejecutandose y los que no pero se ejecutaron anteriormente)
+Podremos ver cuando fue creado y su estado(si ya terminó y se puede volver a ejecutar si queremos)
+
+Y luego 
+#docker ps (lista sólo los containers que se están ejecutando actualmente)
+
+#Para ver las carpetas del directorio raíz del SO ubuntu
+docker run ubuntu ls
+
+Para correr una bash de la imagen del ubuntu ponemos:
+#docker run -i -t ubuntu bash
+
+Ahora podremos ejecutar comandos de ubuntu dentro de este container
+
+
+*Si ahora desde otra terminal hacemos docker ps vemos como actualmente se está ejecutando el container que está corriendo la bash de la imagen de ubuntu
+
+
+Para crear contenedores con nombres dados por el usuario: (le damos el nombre rafa)
+
+#docker run --name rafa -it ubuntu
+
+si ahora hacemos un docker ps -a veremos como en la columna name aparece el nombre dado anteriormente.
+
+
+ -----------------------------------------------------------------------------------
+|			     CONTENEDORES INTERACTIVOS                             |
+ -----------------------------------------------------------------------------------
+
+-Son aquellos a los que se le permiten hacer inputs y outputs
+
+Creamos un contenedor interactivo de la bash de la imagen de ubuntu:
+#docker run -i -t ubuntu bash
+
+Ahora con este container podremos interactuar, crear archivos, borrarlos, ejecutarlos, etc...
+
+
+Si cerramos el contenedor usando 
+#exit 
+y luego hacemos 
+#docker ps 
+vemos como no aparece, el contenedor paró su ejecución. 
+
+Para salir del contenedor interactivo sin detenerlo ejecutamos al salir 
+#CTRL + P + Q
+
+Para detener la ejecucion del contenedor usamos: #docker stop "primeros dos nºs del id del container"
+Para volver a ejecutarlo después de pararlo con stop usamos: #docker start "primeros dos nºs del id del container"
+Si volver a conectarnos usamos: #docker attach "primeros dos nºs del id del container"
+
+
+ -------------------------------------------------------------------------------------
+|                                 PERSONALIZAR CONTAINERS                             |
+ -------------------------------------------------------------------------------------
+
+Aquí intentaremos instalar paquetes.
+
+Corremos un la bash de la imagen ubuntu:
+#docker run -i -t ubuntu bash
+
+Primero actualizamos dependencias
+#apt-get update
+
+Ahora podemos instalar por ejemplo el editor gedit:
+#apt-get gedit
+
+*De esta manera podremos tener nuestras imágenes personalizadas para realizar nuestras implementaciones,e s decir a partir de estas imágenes nosotros podremos instalar o crear nuevas imágenes y con esto vamos a tener ya un entorno de despliegue rápido y ágil de nuestras aplicaciones. Empaquetamos todo el software o contenido que necesitemos para poder desplegar nuestras aplicaciones y solamente tendríamos que desplegar un nuevo contenedor.
+
+*Los entornos de producción siempre se suelen correr en linux
+
+ --------------------------------------------------------------------------------------
+|		   CREAR IMÁGENES A PARTIR DE UN CONTENEDOR (ya modificado)            |
+ --------------------------------------------------------------------------------------
+
+Para crear una nueva imagen a partir del contenedor modificado (le hemos instalado gedit a ubuntu) usamos:
+#docker commmit id_contenedor ubuntu_con_gedit
+
+Hacemos:
+#docker images
+y vemos como la nueva imagen fue creada
+
+Ahora podemos correr nuestra nueva imagen:
+#docker run  -it ubuntu_con_gedit
+
+Y de esta manera podremos crear imágenes a partir de contenedores.
+
+Ahora vamos a ver otra manera MÁS AVANZADA de hacerlo:
+
+Instalamos apache2 en contenedor de nuestra iamgen de ubuntu oficial:
+#apt-get install apache2
+
+Comprobamos que se ha instalado por ejemplo viendo ele stado del servicio apache2:
+#service apache2 status
+
+Lo corremos:
+#service apache2 start
+
+Y ahora nos salimos de la imagen en la que hemos descargado apache2 y desde la terminal de nuestra S0 ubuntu principal hacemos:
+
+#docker commit --change='CMD ["apache2ctl", "-D", "FOREGROUND"]' -c "EXPOSE 85" 3109446ab734 apache2
+
+*change indica que realizaremos un cambio
+*CMD le indica que vamos a darle una finalidad a la nueva iamgen
+*apache2ctl le indica que la finalidad será ejecutar el servidor web apache
+* -c "EXPOSE 80" le indica el puerto por el que se van a conectar ese web server
+* 310... id_magen
+* apache2: nombre de la nueva imagen
+
+Hacemos #docker images para comprobar que se ha creado nuestra imagen apache2
+
+Ejecutamos el nuevo contenedor:
+#docker run -d -p 5000:80 apache2
+
+Haciendo #docker ps podremos ver que está corriendo dicho contenedor
+
+Ahora si nos vamos al navegador ponemos localhost:5000 y veremos como aparece el servidor de apache
+
+ ----------------------------------------------------------------------------------------
+|					DOCKERFILE                                      |
+ ----------------------------------------------------------------------------------------
+Ahora bien, existe otra manera mucho más sencilla de crear imágenes a partir de contenedores o a partir de imágenes base. Para ello usamos los Dockerfile (documento de texto que tiene todos los comandos que un usuario puede llamar a la línea de comandos para montar una nueva imagen). Podríamos decir que es como una receta de cocina, las cuales tiene unos ingredientes.
+
+Ingredientes de un Dockerfile:
+
+
+-FROM: definir una imagen base para crear nuestra nueva imagen con Dockerfile
+	Ej: FROM ubuntu
+
+-MAINTAINER: hace referencia al creador de la receta
+	Ej: MAINTAINER rafa rafaeldriguezcalvente@gmail.com
+
+-RUN: nos permite ejecutar comandos en la imagen base antes de ser creada
+	Ej: RUN apt-get update && apt-get install apache2
+
+-ADD/COPY: nos permite agregar o copiar archivos desde el equipo local a la imagen
+	Ej: ADD index.html /var/www/html
+
+-EXPOSE: nos permite exponer por defecto un puerto para el contenedor
+	Ej: EXPOSE 8080
+
+-CMD:ejecutar acción por defecto al crear el contenedor, es la finalidad
+	Ej: CMD ["/usr/sbin//apache2/", "-D", "FOREGROUND"]
+*/usr/sbin/apache2 ejecuta el servidor apache y la opcion -D FOREGROUND es la opción por defecto
+
+
+Para generar una imagen a partir de nuestro dockerfile:
+#docker build -t mi_imagen ~/Desktop/
+
+
+Ejecutamos el nuevo contenedor:
+#docker run -d -p 5000:80 apache2 mi_imagen
+
+Haciendo #docker ps podremos ver que está corriendo dicho contenedor
+
+Ahora si nos vamos al navegador ponemos localhost:5000 y veremos como aparece el servidor de apache
+
+Por esta razón es más fácil generar un dockerfile que un docker commit

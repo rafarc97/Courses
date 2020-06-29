@@ -1,0 +1,31 @@
+Uno de los objetivos de kubernetes es la automatización de tareas.
+Kubernetes no es una solución final si no la pieza de una solución final
+Kubernetes es un orquestador de estos contenedores de docker
+Su interfaz gráfica no está tan trabajada por eso se suele utilizar más con línea de comandos.
+
+
+Openshift: es un producto complementario a kubernete (mejor dicho una distribución
+kubernetes). De la misma manera que debian,fedora, etc.. son a linux, openshift entre otros
+son a kubernetes.
+
+Docker vs Kubernetes vs OPenshift: no podemos hacer comparativo entre estos términos porque
+realmente son herramientas  que se complementan, vienen a ser como capas de una cebolla.
+El núcleo principal sería el contenedor (docker), luego tenemos el orquestador de contenedores que sería
+kubernetes y por último tenemos las distribuciones kubernetes como puede ser Openshift entre 
+otras (que lo que hace es complementar con cosas que kubernetes no hace).
+
+Hay diferentes motores que pueden levantar contenedores (no solo existe docker) y luego
+con respecto a los orquestadores, básicamente hay dos, kubernetes y docker swarm.
+Y por último con respecto a las distribuciones, cada fabricante ofrece unas distribuciones
+con características y funcionalidades distintas las cuales podremos ver cual nos interesa más.
+
+
+
+INSTALACIÓN: vamos a usar minikube (interface/programa que nos levanta esa máquina virtual con 
+ese cluster de un único nodo de kubernetes y que nos permite interactuar con él) y luego tenemos
+la herramienta estándar que es la kubectl (para manejar el cluster), de tal forma que con
+minikube podremos interactuar con la maquina virtual y con kubectl podremos manejar el cluster
+de kubernetes.
+
+Aquí vamos a ver sobre todo como funciona el kubectl.
+
