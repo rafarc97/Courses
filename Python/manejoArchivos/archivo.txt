@@ -1,0 +1,2 @@
+Estupendo día para estudiar Python 
+Linea incluida desde el exterior una línea
