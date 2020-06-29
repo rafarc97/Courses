@@ -1,0 +1,267 @@
+-----------------------------------------------
+//////////GIT//////////
+-----------------------------------------------
+-GIT: sistema de control de versiones
+#git help (comando info git)
+-----------------------------------------------
+//////////CONFIGURACIÓN INICIAL//////////
+-----------------------------------------------
+#git config --global user.name "rafarc97"
+#git config --global user.email "rafa.rodricalve@alum.uca.es"
+#git config --global color.ui true #Activamos los colores (para ver mejor los resultados arrojados por github)
+#git config --global --list (comprobar las configuraciones realizadas anteriormente)
+-----------------------------------------------
+//////////PRIMER PROYECTO//////////
+-----------------------------------------------
+
+#git init (marca el inicio de nuestro proyecto en el directorio donde nos encontramos, esto creará una carpeta .git (oculta en Linux) en la carpeta donde nos encontremos que será donde se almacenará todo lo que esté dentro de dicho repositorio de Github.
+
+#git status (nos dice el estado de nuestro proyecto/repositorio)
+-COMMIT: cambios registrados en nuestro repositorio.
+
+#git add file_name (indica que git conoce qué archivos hemos modificado)
+*#git add -A (le decimos)
+-UNTRACKED FILES: git sabe que he hecho un cambio en un archivo pero no le he dicho que me lo registre, es decir, no he hecho git add file_name. Haciendo git status nos saldrá en rojo, pero tras hacer el git add nos saldrá en verde y el git status nos indicará que dicho archivo se ha metido en el STAGE: la lista de cambios que están preparados para ser enviados al siguiente commit que hagamos.
+
+#git diff: podemos ver los cambios que hemos hecho en nuestros archivos y que no se han registrado. Las líneas de código que hemos añadido saldrán en verde y con un + y las que hemos quitado en rojo y con un -
+ÍNDICE/INDEX = STAGE
+
+
+#git commit (se abre una ventana de texto para escribir el comentario de dicho commit)
+#git commit -m "comment_name" (guarda los cambios que estén en el STAGE y añade un comentario a dichos cambios)
+#git commit --amend -m "new_comment_name" (modifica el comentario del último comentario realizado. también podemos utilizarlo por si en el último momento hemos olvidado añadir algo al código y queremos que se suba con el mismo commit para no tener que crear otro nuevo)
+Después de hacer el commit hacemos git status y veremos que nos indicará que no tenemos nada que comitear.
+git push origin master -f (la opción -f fuerza a que se suban esos cambios ya que git reconoce que los commits son iguales (los archivos) y no nos dejaría sin la opción -f)
+
+#git log (nos da una lista de todos los commits con sus respectiva info)
+#git log --oneline (para ver solo la primera línea de los comentarios de cada commit si es que tuvieran una descripción muy grande)
+#q (para salir del modo visualización de commits)
+
+//COMO REVERTIR CAMBIOS EN ARCHIVOS AL CUAL NO SE LE HA HECHO COMMIT
+Si hemos modificado un archivo, pero no hemos hecho el add, git se dará cuenta y podremos comprobarlo al hacer git status y saliendo en rojo el/los archivos modificados sin ser metidos aún en el STAGE (haciendo git diff podremos ver las líneas de código modificadas, en rojo las eliminas y en vede las añadidas). Si queremos revertir este cambio no registrado aún en el STAGE porque nos hallamos podidos equivocar tendremos que hacer git checkout -- file_name.
+Si hemos modificado un archivo y hemos hecho el add, podremos comprobar con git status como nos saldrá dicho archivo en verde lo cual nos indicará que está ya metido en el STAGE listo para ser comiteado. Pero si queremos revertir este cambio por alguna equivocación haremos git reset HEAD file_name, y tras ello volveremos a mirar en git status como ahora sale en rojo el archivo el cual sigue estando modificado pero ahora ya está fuera del STAGE, por lo tanto ahora haremos git checkout -- file_name para eliminar dicho cambio en el archivo. Luego de esto en git status no nos debería de salir nada.
+
+//COMO REVERTIR CAMBIOS EN ARCHIVOS AL CUAL SÍ SE LE HA HECHO COMMIT
+Si por ejemplo hemos hecho 6 commits en un archivo (hemos añadido 6 línes de código una por cada commit) y queremos volver a un commit anterior por ejemplo al 5º, tendremo que hacer git reset hash5º_commit (que lo podremos encontrar haciendo git log --oneline). Tras ello hacemos git log --oneline y veremos como el 6º commit ya no aparece, y si hacemos git status veremos como nos sale en rojo como que el archivo está modificado pero no lo hemos subido al STAGE, y si hacemos git diff veremos como aparece en verde que se ha añadido una 6ª línea, la correspondiente al commit que acabamos de eliminar, es decir con git reset hash_commit borramos el commit pero no modificamos el archivo en sí. Para modificar el archivo y dejarlo tal como estaba en el commit 5º hacemos git checkout -- file_name y así revertimos el cambio a como estaba en el commit 5º.
+Hay dos opciones más con reset_
+-git reset --hard hash_commit: esto elimina el commit y también elimina los cambios del archivo (nos ahorramos el paso del checkout), si ahora hacemos git status no nos saldrá nada y consecuentemente en git diff tampoco.
+-git reset --soft hash_commit: esto elimina el commit pero no elimina el cambio en el archivo, y por otro lado deja en el stage el cambio realizado en ese commit(como si se hubiera hecho un git add), es decir si hacemos git status nos saldrá en verde el cambio listo para ser comiteado. Tras esto ya podré decidir si sacar del STAGE dicho cambio con git reset HEAD file_name y luego deshacer el cambio con git checkout -- file_name o podré también comitearlo para dejarlo como estaba.
+CONCLUSIÓN: el poder de los tipos de reset de menor a mayor intensidad es git reset --soft hash_commit < git reset hash_commit < git reset --hard hash_commit
+
+
+//COMO UTILIZAR REVERT: otro comando para deshacer cambios
+#git log --online | cat (para mantener los commits en pantalla mientrsa puedo ejecutar otros comandos abajo)
+#git diff hash_commit1 hash_commit2 (para lanzar las diferencias entre dos commits y poder comparar)
+#git diff HEAD~1 HEAD (compara el commit anterior con el actual, es otra manera de hacer lo visto en el comando anterior)
+#git log --oneline --decorate (para que nos salga + información sobre las ramas etc de los commits)
+
+Imaginemos que tengo un fichero prueba y hemos añadido 5 commits los cuales cada uno de ellos han hecho:
+
+paso1
+paso2
+password:as45as
+paso3
+paso4
+
+Si ahora realiamos un 6º commit el cual cambia la contraseña por otra distinta el fichero prueba quedaría así:
+
+paso1
+paso2
+password:a3a
+paso3
+paso4
+
+Imaginemos que quiero deshacer dicho cambio para poner de nuevo la antigua contraseña, para hacemos haremos:
+#git diff HEAD HEAD~4 (para comparar los cambios que se han hecho, nos deberá salir en rojo la antigua contraseña es decir la que se elimnó en el ultimo commit y en verde la que añadida en el ultimo commit)
+#git revert HEAD (puesto que quiero eliminar el último commit realizado. Al ejecutar este comando nos saldrá una ventana del nuevo commit que se creará para realizar dicho cambio, pero si queremos que se deshagan los cambios sin que automaticamente me bligue a subir el commit podemos utilizar la opción #git revert ---no-commit HEAD, ahora si hacemos git status podremos ver en verde el fichero prueba listo para ser commiteado. Esta última opción es útil cuando queremos revertir varios commits y queremos que todos ellos se guarden en un único nuevo commit, de lo contrario se crearían un nuevo commit por cada commit revertido. Si esto último fuera el caso, para finalizar y guardar todos los cambios realizados en cuanto a la reversión de los commits que hayamos querido hacer, pondremos #git revert --continue y se abrirá una ventana donde indicaremos la descripción del nuevo commit que se creará para realizar la reversión de todos los commits anteriores).
+
+
+
+//Para guardar estos cambios en Github (nube):
+//REPOSITORIO = PROYECTO. Existen repositorios/proyectos remotos y locales. El remoto es el que está en la nube (Github) y el local el situado en nuestro pc. Hasta ahora solo sabemos modificar cambios en el repositorio local.
+Cuando creamos un nuevo proyecto remoto, tenemos que conectarlo con el local para poder trabajar desde la terminal, para ello hacemos:
+#git remote add origin [url_remote_repository]
+#git remote -v (comprobamos los vínculos de repositorios remotos con locales existentes)
+#git remote remove origin (borramos el vínculo de los repositorios remotos con los locales)
+#git remote -v (volvemos a comprobar los vínculos existentes)
+#git push origin branch_name(pasa lo que tenemos en nuestro pc a github, es decir del repositorio local al remoto de la rama que le indiquemos)
+
+#git checkout -- file_name (para volver a la anterior versión del archivo que le indicamos)
+#git checkout "código sha commit en concreto" (para actualizar el archivo al que pertenece cuyo commit igual que estaba con ese cambio, es una forma de "viajar en el tiempo")
+*#git reset --soft "nº id commit"(borra nuestro commit pero no borra el código de dicho commit)
+*#git reset --hard "nº id commit"(borra todo lo que hay en el commit incluído el código)
+-------------------------------------------------
+//////////RAMAS Y FUSIONES//////////
+-------------------------------------------------
+-"HEAD" = commit donde nos encontramos actualmente, es decir si hacemos un git chekcout "nº id commit" ese será nuestro HEAD.
+-"RAMAS" = es una línea de tiempo en nuestro proyecto, que nos sirven para arreglar errores, experimentar, hacer grandes cambios, etc... cualquier cosa que no afecte a nuestro proyecto actual. Tenemos la rama "master" que es la rama por defecto que se crea cuando creamos nuestro repositorio. Es donde comenzamos a trabajar, la rama principal y estable de nuestro proyecto.
+#git branch (nos muestra las ramas creadas. Nos indica en color y con un "*" la rama en la que nos encontremos trabajando en ese momento).
+git branch -a (muestra también las ramas ocultas)
+#git branch "branch_name" (crea una rama, esta rama se creará a partir de nuestro HEAD, es decir con la versión de los archivos del último commit realizado).
+#git checkout -b [branch_name] (crea una rama y se mueve a ella directamente sin tener que hacerlo en dos pasos de creación y luego moverse)
+#git branch -m branch_name new_branch_name (renombra rama)
+#git checkout [branch_name] (nos mueve a esa rama para trabajar con ella, a partir de este momento todo cambio que realicemos se guardarán en esa rama en lugar de la master o en la que nos encontrábamos anteriormente).
+#git branch -d (o -D si no nos deja) "branch_name" (borra esa rama)
+
+Imaginemos que queremos modificar el archivo css de una página web, es decir donde se encuentra su diseño pero queremos hacerlo de forma paralela a master por si nos equivocamos o no sale bien los cambios. Para ello crearíamos una rama nueva totalmente independiente a la master y si en un futuro saliera bien pues ya nos preocuparíamos de fusionarla. Debemos saber que si estamos trabajando en la nueva rama nuestro HEAD comenzará a apuntar a dicha rama y los ficheros en nuestro pc se guardarán conforme lo estemos guardando en dicha rama, si por el contrario hacemos un cambio de rama a la master, todos los cambios en dicho fichero del pc hecho en la otra rama desaparecerán debido a que nuestro HEAD ahora habrá'vuelto a apuntar a nuestra rama master y por lo tanto señalará el último commit realizado de la rama master.
+
+-FUSIONES = creación de un nuevo commit juntando una rama con otra.
+Cuando se realiza una fusión de una rama distinta a la master, estamos dejando en master los commits correspondientes tanto a la rama master como a la otra en la cual hemos hecho algunos cambios.
+La fusión se haría así:
+
+#git checkout branch_name (nos situamos 1º en la rama que va a absorver)
+#git merge [branch_name] (escribimos la rama que va a ser absorvida y se hace la fusión)
+
+Cuando hacemos una fusión en el que se fusionan una rama que tiene modificaciones con otra que no las tiene, git nos lo muestra mediante un mensaje que indica que se está realizando la estrategia Fast-forward. Si luego de hacer este tipo de fusión hacemos git log --oneline --all --graph vemos como ahora se ha añadido el último commit de la nueva rama a la rama master, y el HEAD aparecerá en dicho commit apuntando a ambas ramas.
+
+Cuando hacemos una fusión en el que se fusionan dos ramas en las que ambas tienen nuevos commits, es decir las dos han sido modificadas, pero se han modificado archivos distintos, git nos muestra un mensaje que indica que se está realizado la estrategia Recursiva. Esta estrategia también se utiliza para fusionar cuando se han modificado el mismo archivo en dos ramas distintas pero en distintas líneas de ese archivo. Si hacemos git log --oneline --all --graph vemos como se ha creado un nuevo commit en la cual estará el HEAD apuntando a la rama master.
+
+Cuando hacemos una fusión en el que se fusionan dos ramas en las que ambas tienen nuevos commits, es decir las dos han sido modificadas y además se han modificado algún archivo en común, y en concreto, se han hecho cambios en la misma línea de código del mismo archivo, tenemos un conflicto y hay que resolverlo.
+Imaginemos que  tenemos las ramas hola y la rama adios y la en la rama hola se hace un commit cuyo cambio consiste en añadir al final de la primera línea de un archivo la palabra hola, y en la rama adios se hace lo mismo pero añadiendo adios al principio por ejemplo, pues primero fusionariamos hola con master y el git nos dirá que se resuelve por fast forward, pero luego a la hora de fusionar la rama adiós con master tendremos un conflicto. Si hacemos git status este nos indicará que hay un conflicto y un mensaje en rojo: both modified: file_name que nos indica que hay dos modificaciones de ramas distintas que están intentando modificar la misma linea de código del mismo archivo. ¿Qué ocurre ahora? pues que git nos mete en el archivo conflictivo las dos modificaciones por separado para que nosotros hagamos un nano file_name para modificar y dejar la línea que queramos o nos interese. Nos deja el siguiente formato en el archivo conficltivo:
+
+<<<<<HEAD
+líneas de código perteneciente al cambio que hizo la primera rama
+===========
+línes de código pertenecientes al cambio que hizo la segunda rama
+>>>>>>>>>>>> nombre_rama
+ 
+Nosotros cogeremos y borraremos lo del HEAD, el nombre de rama y los símbolos que se han metido con nano u otro editor y guardaremos el archivo con las líneas de código que queramos dejar.
+Tras esto hacemos git add file_name y luego git commit -m "lo que sea" y solucionado. Si por lo contrario nos arrepentimos de lo que acabamos de guardar en el archivo tras el conflicto, hacemos git merge --abort y problema solucionado, volveremos atrás y solo se habría fusionado la rama hola con master.
+
+#git log (para comprobar los cambios en los commits realizados).
+//Cuando hacemos una fusión nos puede salir dos mensajes:
+-fast-forward (hace la fusión y no pregunta nada)
+-manual merge (suele ocurrir cuando fusionamos ramas en las que se han hecho commits que han realizado cambios con los mismos archivos y mismas líneas de código, nos puede hacer alguna pregunta antes de realizar la fusión).
+//CONCLUSIÓN: Master es la rama que tiene que estar siempre funcionando perfectamente, y las demás ramas se crean para ir haciendo pruebas del mismo código el cuál si sale bien podremos luego pasarlo al master a través de la fusión.
+
+
+
+
+--------------------------------------------------
+//////////ALIAS//////////
+--------------------------------------------------
+Para crear alias:
+#git config --global alias.lodag "log --oneline --decorate --all --graph
+Ahora para poner ese comando tan largo podremos utilizar #git lodag simplemente
+
+Para mostrar los alias existentes:
+#git config --global --get-regexp alias
+
+Para eliminar alias:
+git config --global --unset alias.lodag
+--------------------------------------------------
+/////////GITCLONE Y PULL//////////
+--------------------------------------------------
+Se suele usa para pasar/clonar un proyecto a nuestro pc. Tenemos que copiar el url de donde se encuentra el proyecto, nos movemos al escritorio donde queremos que se clone dicho proyecto y hacemos:
+#git clone [url]
+
+--------------------------------------------------
+//////////PULL//////////
+--------------------------------------------------
+Para recoger código de un remoto:
+#git pull origin master
+Si después de esto hacemos git log --oneline --all vemos como donde apunta el HEAD han aparecido ounos nombres nuevos: origin/master, origin/HEAD eso es porque en git los remotos al fin y al cabo no son más que ramas, si hacemos git branch solo vemos master pero si hacemos git branch --all vemos además de master: remotes/origin/HEAD y remotes/origin/master. Si tuviesemos más ramas en un remoto nos aparecerían más ramas.
+
+Realmente pull es una combinación de dos comandos:
+git fetch origin (le pregunta al remoto origin si tiene novedades y las descarga unicamente en caso afirmativo. Estas novedades del remoto origin se descargarán en la nueva rama que se crea llamada origin/master). Luego el segundo comando es git merge origin master que lo tendremos que ejecutar estando en la rama master y lo que hace es fusionar las novedades descargadas del remoto origin que están guardadas en la rama origin/master con la rama master.
+
+--------------------------------------------------
+//////////REBASE//////////
+--------------------------------------------------
+tenemos modificaciones en una rama remota y en una rama local y queremos hacer un pull sin que se creen commits que no sirven para nada.
+--------------------------------------------------
+//////////ISSUES, MILESTONES Y LABELS//////////
+--------------------------------------------------
+-ISSUES: son una forma de continuar, mejorar o solucionar un error en nuestros repositorios/proyectos
+-MILESTONES: son grupos de issues que aplican para un proyecto, característica o periodo de tiempo
+-LABELS: etiquetas de colores que se le asignan a los issues con nombres en concreto por ejemplo "bugs" o "cambios interfaz", depende de para lo que se haya creado dicho issue.
+--------------------------------------------------
+//////////TAGS//////////
+--------------------------------------------------
+-TAGS: sirven para identificar un commit en concreto. Son simples puntos específicos en la historia de nuestro proyecto y se usan para marcar alguna versión del mismo. Nos sirven para asignar versiones a nuestros commits. Cuando se crea un tag a un commit, se crea automaticamente un alias asociado a este commit, y a través de ese alias podré referirme a ese commit en concreto en todo momento.
+Podemos hacer en una rama distinta #git checkout tag_name del commit que lleve asociado dicho nombre como tag. Si hacemos git status nos indica que el HEAD de la rama en la que estamos trabajando se ha ido al commit que hemos indicado a través de su etiqueta. Si hacemos git log --oneline --all vemos a donde apunta cada rama y como la rama distinta apuntará a la etiqueta del commit que asociamos y la rama master seguirá apuntando donde estaba iciailemnte.
+
+-TAGS ANOTADAS: son almacenadas como objetos completos dentro de la base de Git y contienen más información.
+-TAGS LIGERAS: son otra forma de crear tags mas simples, con menos información.
+
+EJEMPLOS:
+
+Crear tag ligero:
+#git tag v2.0 (añade dicha etiqueta al último commit realizado, esta vez sin título)
+
+Mostrar todos los tags de nuestro repositorio:
+#git tag
+#git tag -l "v0.1.*" (mostrar todas las veriones 0.1.algo)
+
+Mostrar información detallada de un tag:
+#git show tag_name (git show también se utiliza para describir detalladamente ramas usando branch_name y commits usando hash_commits
+
+Eliminar tags:
+#git tag -d tag_name
+ 
+
+Crear tag anotado:
+#git tag -a tag_name (nos abre el editor de texto para describir bien el tag)
+#git tag -a v2.0 -m "Versión 2.0 del proyecto" (le añade dicha etiqueta al último commit realizado o al commit que esté apuntando el HEAD en ese momento)
+#git tag -a v2.0 -m "Versión 2.0 del proyecto" sha_code (le añade dicha etiqueta al commit cuyo código sha hallamos añadido)
+
+//CONCLUSIÓN: para tags serios crear tags anotados y para tags que vayan a ser muy temporales mejor usar los ligeros
+
+//SUBIR A GITHUB LOS TAGS:
+#git push origin v2.0
+#git push origin --tags (sube todos los tags creados de una ejecución)
+--------------------------------------------------
+//////////STASH//////////
+--------------------------------------------------
+Imaginemos que estamos trabajando en una rama y acabamo de realizar una modificación den un fichero, le hemos hecho el git add, pero ahora por cualquier motivo tenemos que cambiar de rama para trabajar con otras cosas y no tenemos tiempo para crear un commit con una descripción en condiciones, ¿como guardamos estos cambios sin que se nos borre? pues hacemos #git stash? y si hacemos git status veremos como no aparecerá ninguún archivo por comitear, si hacemos #git stash list nos saldrán una lista de los stash que se han guardado. Si ahora cambiamos de rama, hacemos los arreglos que sean y volvemos a la rama inicial, para recoger el stash guardado hacemos #git stash apply. Los stash se van guardando como en forma de pila, se van amontonando unos encima de otros. Si luego hacemos git status vemos como sale en rojo el archivo que teníamos, es decir nos lo saca del stage y ahora tendremos que hacer el git add de nuevo. SI volvemos a hacer git stash list vemos que el stash sigue almacenado por lo que para borrarlo tendremo que hacer git stash drop, y si volvemo s hacer git stash list ya no aparecerá nada. #git stash pop nos saca el stash y lo elimina de un solo paso.
+
+Meter archivo modificado en el stash con nombre descriptivo:
+#git stash save "message". 
+
+Para sacar un stash en concreto de por medio de la pila(porque aunque tenga funcionamiento de pila podemos indicarle especificamente para sacar otro dato de en medio, si no se lo indicamos sacará el que esté en la posicion 0, es decir sacará el último que se metió):
+#git stash pop/apply/drop -q stash_name
+
+Muestra info de un stash concreto:
+#git stash show stash@\{0} (para otr stash cambiamos el 0 por el qe sea)
+
+RECOMENDACIÓN: ponerle titulos a los stash porque si creamos muchos al final de todo no vamos a acordarnos de que se hizo en cada uno. 
+
+--------------------------------------------------
+//////////REMOTOS//////////
+--------------------------------------------------
+
+--------------------------------------------------
+//////////WORKFLOWS//////////
+--------------------------------------------------
+-WORKFLOWS: flujos de trabajo con proyectos propios, en equipo o terceros. 
+-PROYECTOS PROPIOS: somos los dueños, decidimos todo lo que pasa en el repositorio (como todo lo hecho anteriormente con el tema de los repositorios locales y remotos, etc...) A eso se le llama como workflow de proyectos propios.
+-PROYECTOS EN EQUIPO: es similar solo que ahora habrán commits tb de otras personas.
+Para trabajar en equipo creamos una nueva organización OpenSource en Github e eindicamos los usuarios que podemos acceder a dicha organización. En el apartado People podremos cambiarle los privilegios a otros usuarios. Luego podemos transferir un repositorio a dicha organización. Para que otro usuario pueda pasar ese repositorio/proyecto a su pc hace un git clone de dicha url del proyecto.
+-git fetch origin: pasamos los cambios de la rama master a la rama oculta origin/master 
+-git merge origin/master: pasamos los cambios de la rama oculta origin/master a la rama master
+-git push origin master (para terminar el proceso de cambios)
+
+
+
+--------------------------------------------------
+//////////DEPLOYMENT//////////
+--------------------------------------------------
+LLAVE SSH: igual que la opción HTTPS está esta opción, otro método de conexión con un servidor sin tener que poner una contraseña en cada momento. Cuando hacemos push origin master, el git siempre nos pide la contraseña para verificar que somos nosotros quienes hacen los commits, con esta conexión no necesitaremos hacerlo.
+#ssh-keygen (recomiendo hacerlo en "~", se creará una carpeta oculta .ssh y dentro de ella dos archivos uno correspondiente a la llave privada (id_rsa) y otro a la pública (id_rsa.pub). 
+#cd .ssh
+#cat id_rsa (y copiamos los caracteres que aparecen en el apartado de conexión ssh de nuestro apartado de configuraciones de nuestro perfil github)
+#git remote add originn url_ssh_repository (esto se hará en la carpeta donde queramos crear la conexión ssh del servidor remoto con el local)
+AHORA HACEMOS ALGÚN CAMBIO EN NUESTROS ARCHIVOS Y PROBAMOS:
+#git add -A
+#git commit -m "--"
+#git push originn master
+--------------------------------------------------
+
+
+
+
+
+
+
+
+RAFAEL RODRÍGUEZ CALVENTE
