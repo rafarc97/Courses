@@ -1,0 +1,66 @@
+main{
+    display: grid;
+    height: 100vh;
+    grid-gap: 10px;
+
+    /* Así se indica que habrán dos columnas una con un 33% y otra del 66%*/
+    /* grid-template-columns: 1fr 2fr; */ 
+
+    /* Definimos el tamaño en columnas que ocupada cada elemento */
+    grid-template-columns: 
+        [sidebar-start] 1fr
+        [sidebar-end contenido-start] 2fr
+        [cotenido-end];
+
+    /* Definimos el tamaño en filas que ocupada cada elemento */
+    grid-template-rows: 
+        [header-start] 1fr
+        [header-end contenido-start] 2fr
+        [footer-start] 1fr
+        [footer-end];
+}
+
+main > *{
+    font-family: sans-serif;
+    background-color: goldenrod;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Le indicamos la columna desde la que empieza a posicionarse */
+/* Además le decimos que ocupe 2 */
+header{
+    grid-column: sidebar-start / contenido-end; 
+}
+
+/* -1 le indica que llegue hasta el final */
+footer{
+    grid-column: sidebar-start / contenido-end; 
+}
+
+
+
+/* OTRO DISEÑO hecho de dos formas distintas */
+/* header{
+    grid-column: sidebar-start / span 2;
+}
+
+aside{
+    grid-row: contenido-start / span 2;
+}
+
+footer{
+    grid-column: contenido-start;
+} */
+
+
+
+
+/* header{
+    grid-column: sidebar-start / -1;
+}
+
+aside{
+    grid-row: sidebar-start / 2;
+} */

@@ -1,0 +1,102 @@
+*{
+    font-family: Arial;
+    font-weight: 100;
+    font-size: 20px;
+}
+
+.texto{
+    padding: 20px;
+}
+
+    /* Los pseudo-elementos no son elementos, es decir, 
+    no forman parte del DOM.  
+
+    ::first-line | BLOCK (funciona con elementos de bloque y con los inline-block)
+    ::firts-letter | BLOCK
+    ::placeholder
+    ::after | HIJOS - CONTENT (NECESARIO) - INLINE
+    ::before | HIJOS - CONTENT (NECESARIO) - INLINE
+    ::selection
+
+
+
+    Pseudo-Clases:
+
+    :hover 
+    
+    */
+
+
+/* Todas estas props se aplicarán a la primera línea independientemente del tamaño
+de la pantalla del dispositivo donde se abra dicha web */
+.texto::first-line{
+    color: blue;
+    font-size: 2em;
+}
+
+/* Igual pero aplicado a la primera letra */
+.texto::first-letter{
+    color: red;
+    font-size: 3em;
+}
+
+form{
+    margin: 100px auto;
+    display: block;
+    background-color: #555;
+    padding: 100px;
+    width: 50%;
+}
+
+input{
+    padding: 6px;
+    width: 100%; 
+}
+
+/* Cambiar los estilos del placeholder */
+input::placeholder{
+    color: red;
+    background-color: yellow;
+    font-size: 0.7em;
+}
+
+/* Cambiar los estilos de la selección */
+input::selection{
+    color: green;
+    background-color: orange;
+    font-size: 0.7em;
+}
+
+.etiqueta-p::selection{
+    color: red;
+    background-color: white;
+}
+
+/* 
+
+::AFTER y ::BEFORE
+
+-Cuando creamos un pseudo-elemento ::after o ::before estamos creando un 'hijo' de ese elemento
+-NECESITAN la prop. CONTENT
+-Son elementos en LINEA
+
+*/
+b{
+    width: 100%;
+    height: 100px;
+    display: block;
+    text-align: center;
+    background-color: lightpink;
+}
+
+b::before{
+    content: "Rafa dice ";
+    color: red;
+    background-color: lightblue;
+}
+
+b::after{
+    content: " y está programando CSS";
+    color: blue;
+    background: lightgreen;
+}

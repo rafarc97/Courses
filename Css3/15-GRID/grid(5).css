@@ -1,0 +1,36 @@
+main{
+    display: grid;
+    height: 100vh;
+    grid-gap: 10px;
+    font-family: sans-serif;
+
+    /* 
+    La unidad fr aprovecha para ocupar el espacio sobrante DISPONIBLE, es decir
+    si hubiera algún elemento que tuviera una medida fija como en px, fr no funcionaría
+    de la misma manera 
+    */
+    
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
+}
+
+main > * {
+    background-color: goldenrod;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 500px){
+    main{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(5,1fr);
+    }
+}
+
+@media (max-width: 300px){
+    main{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(9,1fr);
+    }
+}

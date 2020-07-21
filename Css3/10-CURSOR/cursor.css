@@ -1,0 +1,14 @@
+.caja{
+    margin: 25px;
+    width: 200px;
+    height: 200px;
+    background: pink;
+    border: 5px solid red;
+    cursor: pointer;
+}
+
+.caja:active{
+    cursor: row-resize;
+    cursor: progress; 
+    /* Todos los cursores en https://www.w3schools.com/cssref/tryit.asp?filename=trycss_cursor*/
+}

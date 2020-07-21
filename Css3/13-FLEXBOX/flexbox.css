@@ -1,0 +1,164 @@
+*{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 100;
+}
+
+.flex-container{
+    height: 300px;
+    border: 5px solid orange;
+    display: flex;
+
+    flex-direction: row-reverse;
+    flex-direction: column;
+    flex-direction: column-reverse;
+    flex-direction: row;
+
+    flex-wrap: wrap-reverse;
+    flex-wrap: nowrap;
+
+    flex-flow: row wrap;
+    /* Y todas las demás combinaciones */
+
+    justify-content: center;
+    justify-content: space-between;
+    justify-content: space-evenly;
+    justify-content: space-around;
+
+    /* Esta solo se utiliza para cuando tengamos una línea de flex items */
+    align-items: flex-end;
+    align-items: stretch;
+    align-items: flex-start;
+
+    /* Esta igual que la anterior para cuando hay varias líneas de varios items */
+    align-content: flex-start;
+    align-content: flex-end;
+    align-content: stretch;
+    
+}
+
+.flex-item{
+    width: 100px;
+    height: 100px;
+    background: #f99;
+    border: 5px solid black;
+    text-align: center;
+}
+
+/* ORDER
+
+Es como el z-index pero en el main axis. Es decir el flex item
+que tenga un order con mayor valor, es el que se posicionará 
+más a la derecha (si tenemos flex-direction: row) o más a la izq
+(si tenemos un flex-direction: row-reverse) y lo mismo con 
+el column.
+
+*/
+.green{
+    background: green;
+    order: 4;
+}
+
+.flex-container2{
+    display: flex;
+    border: 5px solid orange;
+    width: 100%;
+    height: 300px;
+}
+
+/* FUNCIONAMIENTO DEL MARGIN cuando tenemos 1 solo flex item */
+.flex-item1{
+    width: 100px;
+    height: 100px;
+    background: #f99;
+    border: 5px solid black;
+    margin: auto;
+    margin: 0 auto;
+    margin: auto 0;
+}
+
+
+/* GROW */
+
+/* El espacio se reparte entre las 3 cajas flexibles para cubrir el 100% de su contenedor padre */
+.flex-container3{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 300px;
+    border: 5px solid orange;
+}
+
+.flex-item2{
+    background: #f99;
+    min-width: 200px;
+    height: 100px;
+    text-align: center;
+    border: 5px solid black;
+    margin: 5px;
+    flex-grow: 1;
+}
+
+/* Si tenemos dos cajas flexibles (3 y 4) entonces al darle a una un valor
+de flex-grow: 2 y a otro flex-grow: 1, suman 3 por lo tanto del espacio sobrante
+que deja la caja 5, este se reparte en 3 partes y toma el item3 2/3 y el item4 1/3 
+*/
+
+.flex-container4{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 300px;
+    border: 5px solid orange;
+}
+
+.flex-item3{
+    background: #f99;
+    min-width: 200px;
+    height: 100px;
+    text-align: center;
+    border: 5px solid black;
+    margin: 5px;
+    flex-grow: 2;
+}
+.flex-item4{
+    background: #f99;
+    min-width: 200px;
+    height: 100px;
+    text-align: center;
+    border: 5px solid black;
+    margin: 5px;
+    flex-grow: 1;
+}
+.flex-item5{
+    background: #f99;
+    min-width: 200px;
+    height: 100px;
+    text-align: center;
+    border: 5px solid black;
+    margin: 5px;
+}
+
+/* FLEX SHRINK */
+
+.flex-container5{
+    display: flex;
+    height: 300px;
+    border: 5px solid orange;
+}
+
+.flex-item6{
+    background: #f99;
+    min-width: 150px;
+    
+    height: 100px;
+    text-align: center;
+    border: 5px solid black;
+    margin: 5px;
+    flex-grow: 1;
+    width: 200px;
+}
+
+.siete{
+    flex-shrink: 2;
+    background: red;
+}

@@ -1,0 +1,288 @@
+/* 
+
+COLORES: mejor usar foramato hexadecimal o rgb/rgba que colores literales
+como color: red; debido a que un navegador puede comprender un red con distintos
+valores haexadecimales distintos y por lo tanto pintarse con diferentes tonalidades
+de rojo.
+
+*/
+
+/* ESPECIFICIDAD */
+
+/* 
+
+Jerarquía:
+
+-> !important (color: pink !important;)
+-> estilos en línea (style="color: red;")
+-> identificadores (#ids)
+-> clases (.clases), pseudoclases y atributos ([atributo]="mi-atributo"
+-> elementos (h1) y pseudo-elementos
+
+*/
+
+h1{
+    color: brown !important;
+}
+
+#ids{
+    color: grey;
+}
+
+.clases{
+    color: blue;
+}
+
+[atributo="mi-atributo"]{
+    color: orange;
+}
+
+h1{
+    color: green;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+METODOLOGÍA BEM: una forma de organizar los nombres de los elementos CSS
+
+Se puede programar CSS sin usar ninguna metodología, pero es recomendable
+usar alguna de las muchas existentes. La metodología BEM es una de las más
+conocidas mundialmente.
+
+*/
+
+.contact-form__input--active{
+    color: red;
+}
+
+.contact-form__input--otrochild{
+    color: blue;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+UNIDADES DE MEDIDA:
+
+Existen dos tipos: relativas y fijas
+
+Relativas: dependen de algo (son variables)
+Fijas: son fijas (píxeles, centímetros, puntos,...)
+
+*/
+
+/* Fijas */
+
+.unidades h2{
+    font-size: 15px; /* Píxeles */
+}
+
+.unidades h2{
+    font-size: 2cm; /* Centímetros */
+}
+
+.unidades h2{
+    font-size: 25mm; /* Milímetros */
+}
+
+.unidades h2{
+    font-size: 28pt; /* Puntos */
+}
+
+/* Relativas: usadas para RESPONSIVE DESIGN */
+
+/*  
+
+EM
+
+Por defecto 1em = 16píxeles pero esta relación se obtiene por herencia
+
+Este calculo se aplica a cualquier propiedad que trabaje con medidas
+(padding, margin, width, height, ...)
+
+*/
+
+.unidades h2{
+    font-size: 2em; /* 1em = 16px */
+}
+
+.unidades{
+    font-size: 20px;
+}
+.unidades h2{
+    font-size: 2em; /* 1em = 20px */
+}
+
+/* 
+
+VW/VH (Viewport width / Viewport height)
+
+width: 100vw; = total del ancho de la pantalla
+
+*/
+
+.unidades{
+    width: 0px;
+    margin: 0px;
+}
+
+.unidades{
+    font-size: 25px;
+    background-color: red;
+    width: 100vw; /* Viewport width */
+    height: 25vh; /* Viewport height */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+PROPIEDADES DE TEXTO: 
+
+*/
+
+.unidades h2{
+    font-size: 2em; /* Tamaño de letra */
+
+    /* 
+    Podemos agregar tipografías de google fonts, tenemos que copiar el link 
+    que nos proporciona la misma web para añadirlo
+    */
+    font-family: 'Rowdies', sans-serif; /* Estilo de letra */
+
+    /* 
+    1 letra ocupa 1 line height 
+    
+    2 line height = aumento 1/2 del tamaño de la letra hacia arriba +   
+                    aumento 1/2 del tamaño de la letra habia abajo
+
+    *Aumenta de tamaño el espacio donde se ubica la letra, pero no
+    la letra en sí.
+    */
+    line-height: 2; 
+
+    /* 
+    Grosor de la letra. Dependiendo del tipo de letra a partir de 
+    determinados valores numéricos cambiará su grosor. 
+    Podemos darle valores como 100, 400, 800 o el que queramos e ir
+    probando sus distintos grosores al que más nos guste.
+    */
+    font-weight: 200;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+NORMALIZE
+
+Los navegadores traen un estilo por defecto, es decir te ponen todas las propiedades
+CSS por defecto, pero a veces existen pequeñas diferencias entre estas props por defecto
+entre los distintos navegadores, por ello usamos el NORMALIZE para reinicializar los estilos
+y ponerlos en todos los navegadores de la misma forma.
+
+Descargamos: https://necolas.github.io/normalize.css/
+
+Lo podemos incluir como un link en nuestro html de forma local (normalize.css) 
+o remota (https://necolas.github.io/normalize.css/)
+
+
+IMPORTANTE: 
+
+AGREGAR AL PRINCIPIO DEL TODO:  
+
+*{
+   box-sizing: border-box;
+   padding: 0;
+   margin: 0; 
+ }
+
+-Agregar a este .css en el apartado *{ box-sizing: border-box; } para que si p.ej a una caja de 50px
+le agregamos un margin de 20px, en lugar de transformarse en una de 90px, se quede establecida en 50px.
+Es otra manera de buenas prácticas para responsive design. Entonces, ahora, le demos el valor que le demos
+a propieades que puedan afectar a este tamaño (padding, margin, border, ...) las cajas siempre tendrán el
+valor que le demos (en este caso 50px).
+
+-Agregar a este .css en el apartado *{ padding: 0; margin: 0; }. Es importante saber que si le damos 0,
+esto sería lo mismo que decir 0px o 0rem, 0em, o cualquier medida, ya que 0 x cualquier unidad es 0.
+
+
+AGREGAR a este .css en el apartado img{ max-width: 100%; } para que las imágenes sean responsive
+
+
+Con estos ajustes ya tendremos los estilos reseteados al 100%.
+
+*/

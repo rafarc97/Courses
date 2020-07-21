@@ -1,0 +1,234 @@
+/*
+
+1)Position: con estas propiedades podremos posicionar los elementos
+
+    STATIC (por defecto, no está posicionado)
+    RELATIVE
+    ABSOLUTE
+    FIXED
+    STICKY
+
+    Cuando posicionamos un elemento hacemos que adquieran 4 prop nuevas:
+    top left right bottom
+
+
+*/
+
+/* POSITION: RELATIVE */
+
+.contenedor div{
+    width: 120px;
+    height: 120px;
+}
+
+.pos{
+    background-color: yellow;
+}
+
+.pos2{
+    background-color: red;
+
+    /* Se mueve de sitio pero sigue conservando la pos que tenía antes de darle
+    el position: relative y el top: 80px; Es decir sigue conservando su punto
+    de referencia.
+    Las prop top y left siempre tienen preferencia sobre bottom y right, es decir,
+    si se definen 4 tamaños para cada una de las medidas, se harán caso a top y left
+    
+    La prop z-index es la forma en la que vamos a poner un elemento encima de otro.
+    Esta prop. solo funciona cuando se usa el position en ambos elementos que se superponerán.
+
+    El valor más alto de z-index es el que va a aparecer delante.
+
+    Se suelen dejar varios espacios entre cada elemento de los z-index por si más
+    adelante tenemos que añadir un neuvo elemento y no queremos tener problemas.
+    Por ejemplo los ponemos de 10 en 10.
+
+    
+
+    */
+    position: relative;
+    top: 80px;
+    left: 50px; 
+    z-index: 10; /* Se posiciona por delante de position3 si no tuviese definido el z-index: 20*/
+}
+
+.pos3{
+    background-color: grey;
+    position: relative;
+    z-index: 20; /* mayor z-index que position2 => se posiciona por encima */
+}
+
+.pos4{
+    background-color: green;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* El z-index tiene un conflicto entre los padres e hijos: */
+
+.padre{
+    width: 300px;
+    height: 300px;
+    margin: 40px;
+    background-color: blue;
+    position: relative;
+}
+
+.hijo{
+    width: 120px;
+    height: 120px;
+    background-color: orange;
+    position: relative;
+    top: -20px;
+    left: -20px;
+    /* Esta es la única forma de superponer un padre sobre un hijo, es decir,
+    dándole valores negativos al hijo y NO DEFINIENDO un valor para el padre, 
+    con los positivios (aunque sean valores menores al del padre) no funciona */
+    z-index: -2; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* POSITION ABSOLUTE */
+
+.contenedor2{
+    width: 400px;
+    height: 400px;
+    background-color: orange;
+    outline: 5px solid blue;
+    margin: 100px auto; /* lo centra verticalmente y da 100px margen a los lados */
+    position: relative;
+}
+
+.contenedor2 div{
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 20px;
+    outline: 3px solid black;
+}
+
+.position{
+    background-color: yellow;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.position2{
+    background-color: red;
+    position: absolute;
+    bottom: 0;
+    /* Opacity 0 es transparente y 1 opaco */
+    opacity: .6;
+}
+
+.position3{
+    background-color: purple;
+    /* Esto hace que el espacio inicialmente reservado para esta caja
+    deja de estarlo entonces el div otro4 se posiciona en su lugar */
+    position: absolute;
+    /* Ahora top right left bottom se miden a partir del la pos 0,0 del eje
+    de coordenadas del contenedor padre (siempre y cuando el padre tenga un pos: relative
+    Si la caja padre no estuviera posicionada, entonces toma como referencia la pos 0,0
+    del eje de coordenadas con respecto al viewport */
+    top: 50px;
+    left: 50px;
+}
+
+.position4{
+    background-color: brown;  
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.position5{
+    background-color: green;
+    position: absolute;
+    /* Una forma de centrar el elemento justo en medio sin tener que hacer cálculos 
+    matemáticos */
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* POSITION FIXED */
+
+/* Es igual que absolute pero queda fijo en un lugar y toma como referencia el viewport
+independientemente de si el padre esta pos: relative o no.
+Pierde el espacio reservado*/
+
+.position6{
+    background-color: pink;
+    position: fixed;
+    top: 900px;
+    left: 100px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* POSITION STICKY 
+Este no pierde el espacio reservado
+*/
+
+.position7{
+    background-color: yellowgreen;
+    position: sticky;
+    /* Se comporta como un fixed a partir de que sea top: 0 */
+    top: 0;
+}
+
+.ocupa{
+    height: 600px;
+    background-color: black;
+}

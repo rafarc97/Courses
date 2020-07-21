@@ -1,0 +1,120 @@
+/* 
+
+CAJAS
+
+
+Existen dos tipos de cajas: las de en LINEA y las de en BLOQUE.
+Hay elementos que se comportan por defecto como cajas en bloque y otras en línea.
+
+-BLOQUE: se ajustan al ancho de su contenedor, es decir si tenemos un <h2>, este ocupará todo
+el ancho del contendor donde se sitúe.
+-LINEA: ocupa el tamaño de lo que su contenido tenga, es decir si tenemos un <b>, este ocupará
+lo que ocupe el texto dentro de él.
+
+¿Puedo cambiar este comportamiento por defecto de los elementos? SÍ
+
+
+*/
+
+/* .cajas h2{
+    display: inline;
+}
+
+.cajas b{
+    display: block;
+} */
+
+
+/* 
+
+Estos elementos tienen propiedades:
+
+
+-Elementos en LÍNEA:
+Si le damos un height o un width no hacen nada
+
+-Elementos en BLOQUE:
+Sí funcionan height y width
+
+*/
+
+
+/* 
+
+PROPIEDADES CAJAS (elementos BLOQUE)
+
+BOX MODEL: lo conforman 4 propiedades:
+
+Tienen este orden de jerarquía y cada uno se aplica sobre el otro
+
+content se modifica con la prop line-height
+padding se modifica con la prop padding
+border se modifica con la prop border
+margin se modifica con la prop margin
+
+*/
+
+.cajas h2 {
+    background-color: yellow;
+
+    /* Este elemento de naturaleza bloque ahora tendrá las prop de uno en línea */
+    display: inline-block; 
+
+    /* La prop padding es un short-hand property, es decir podemos acortarla */
+    padding: 10px 30px; /* 10px eje Y 30px eje X */
+    padding: 10px 20px 30px 40px; /* top right bottom left */
+    padding: 10px 20px 30px; /* top right bottom left=right*/ 
+    padding: 20px;
+
+    /* La caja toma el valor que le demos en width y height */
+    box-sizing: border-box;
+    /* La caja toma el valor sumando los margin, padding, border, ... */
+    box-sizing: content-box;
+    
+    /* Ancho y Alto */
+    width: 100px;
+    height:200px;
+
+    /* margin: distancia de separación entre cajas. También es un short-hand 
+    que funciona igual que el padding */
+    margin: 10px;
+    /* margin: auto; */ /* centra las cajas que son elementos bloque y que no están posicionados horizontalmente */
+
+    /* border-radius: Para redondear las esquinas */
+    border-radius: 10px; /* Redondearlo un poco */
+    border-radius: 1em; /* Redondearlo un poco */
+    /* border-radius: 50%; */ /* Para redondearlo al máximo */
+
+    /* Border:  
+    styles: solid | dashed |  double | groove | inset | outset | ridge | ...*/
+    border: 5px solid blue;
+
+    /* box-shadow: para darle sombra a la caja */
+    box-shadow: 1px 5px 6px 2px green;/* Ejex, ejey, tamaño sombra, cuanto borde tendrá, color */
+    /* Para aumentar intensidad: lo repetimos cuantas veces queramos */
+    box-shadow: 1px 5px 6px 2px green, 1px 5px 6px 2px green, 1px 5px 6px 2px green;
+    /* text-shadow: para darle sombra al texto */
+    text-shadow: 1px 8px 10px black; /* Mismas prop que box pero sin la penúltima */
+    /* Para darle más intensidad: lo repetimos cuantas veces queramos*/
+    text-shadow: 1px 8px 10px black, 1px 8px 10px black,  1px 8px 10px black;
+    
+    /* transform: para rotar la caja*/
+    transform: rotate(5deg); /* Rotar 5 grados */
+    transform: rotate(-5deg); /* Rotar -5 grados */
+
+}
+
+.caja2, .caja3{
+
+    /* 
+        0) Outline: Es un short-hand y es como un borde pero sin afectar a las demás cajas, es decir, no
+        ocupa un espacio real en el DOM (en todos los elementos que están en nuestra página).
+        El border si ocupará un espacio dentro del DOM, por dentro de la caja o por fuera dependiendo de si
+        el box-sizing lo tenemos en content box o border-box.
+    */
+    width: 200px;
+    height: 200px;
+    background-color: orange;
+    display: inline-block;
+    outline: 10px solid black;
+}

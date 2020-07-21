@@ -1,0 +1,39 @@
+/* OBJECT FIT trabaja con las resoluciones de las imágenes */
+
+.caja{
+    margin: 25px;
+    width: 400;
+    height: 500px;
+    outline: 10px solid orange;
+}
+
+.caja img{
+    width: 100%;
+    height: 100%;
+    outline: 10px solid blue;
+    
+
+    /* La imagen no hace caso a los % anteriores
+    y coge una resolución igual a la original para que no
+    se vea demasiado ancha o larga */
+    object-fit: contain;
+
+    /* La imagen no se pone más ancha o
+    más alta sino que se agranda o a chica
+    y se ajusta al contenedor para coger la resoución
+    que se le dice en los porcentajes sin desformarse */
+    object-fit: cover;
+
+    /* object-fit: none; */ /* Props por defecto */
+
+    /* Esta se queda con la mejor propiedad */
+    /* object-fit: scale-down; */
+
+    /* Se ajusta a la izquierda o hacia donde le digamos*/
+    object-position: left;
+    object-position: right;
+    object-position: top;
+    object-position: bottom;
+    object-position: 5em;
+    object-position: -5em;
+}

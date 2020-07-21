@@ -1,0 +1,96 @@
+*{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.caja1{
+    height: 200px;
+    width: 200px;
+    background: slateblue;
+    border: 3px solid orange;
+    transition: background 1s, height 1s, width 1s;
+    /* Otra forma de que todos los cambios tarden lo mismo en hacerse */
+    transition: all 1s;
+}
+
+/* 
+
+:hover funciona en elementos en BLOQUE y en LINEA
+
+:hover reacciona cuando el mouse se posicione encima
+
+*/
+.caja1:hover{
+    background: lightblue;
+    height:300px;
+    width: 300px;
+    border: 3px solid black;
+}
+
+.boton{
+    color: white;
+    padding: 20px;
+    background-color: blue;
+    transition: background 0.1s;
+}
+
+.boton:hover{
+    color: black;
+    padding: 20px;
+    background: lightblue;
+}
+
+/* :link cambia un link que aún no visitamos */
+
+.mi-link{
+    margin: 30px;
+    display: block;
+}
+
+.mi-link{
+    color: green;
+}
+
+.mi-link:visited{
+    color: purple;
+}
+
+.boton2{
+    width: 200px;
+    height: 200px;
+    background: red;
+    margin: 25px;
+    transition: color 1s, background 1s;
+}
+
+/* :ACTIVE Cuando apretemos el botón estará en azul. Se suele usar más con los button */
+.boton2:active{
+    color: white;
+    background: blue;
+}
+
+/* :FOCUS se suele usar más con los inputs */
+
+.input{
+    width: 100px;
+    margin: 25px;
+    background: lightblue;
+    transition: all 1s;
+}
+
+.input:focus{
+    width: 200px;
+    padding: 20px;
+    background: gold;
+}
+
+
+/* :LANG es una función a la que tenemos que pasarle el parámetro de a que lenguaje
+queremos pasar el estilo */
+
+/* Afecta solo a los p dentro de lang que estén en idioma español */
+.lang p:lang(en){
+    background: lightcoral;
+    padding: 20px;
+}

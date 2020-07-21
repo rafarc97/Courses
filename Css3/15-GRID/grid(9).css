@@ -1,0 +1,51 @@
+section{
+    display: grid;
+    grid-gap: 10px;
+    font-family: sans-serif;
+    margin: 20px 0;
+}
+
+div{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    text-align: center;
+}
+
+.auto-fill div{
+    background-color: goldenrod;
+}
+
+.auto-fit div{
+    background-color: purple;
+    color: white;
+}
+
+/* 
+
+auto-fill sirve para que, en base al viewport disponible se añadan tantos
+div como quepan a parte de los que ya estén definidos en el html. Los que se generen
+dinámicamente no aparecerán respresentados, pero en el inspeccionador de elementos podremos
+verlos
+
+*/
+
+.auto-fill{
+    /* Menos de 100px no toman las cajas y luego adoptan 1fr */
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+}
+
+/* 
+
+auto-fit hace lo mismo que auto-fill, con la diferencia de que una vez generados dichos div
+dinámicos, colapsa y elimina los que no se utilizan para los que estaban anteriormente
+ocupen su espacio en su lugar
+
+Con esto podremos crear virtualmente cualquier tipo de rejilla en cualquier tipo de
+circunstancia
+
+*/
+.auto-fit{
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+}

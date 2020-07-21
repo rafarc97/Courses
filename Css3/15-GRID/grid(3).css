@@ -1,0 +1,30 @@
+main{
+    height: 100vh;
+    display: grid;
+
+    grid-row-gap: 10px;
+    grid-column-gap: 30px;
+    /* Otra forma de hacerlo */
+    grid-gap: 10px 30px;
+
+    grid-template-columns: 33% 33% 33%;
+    /* Otra forma de hacerlo */
+    grid-template-columns: 1fr 1fr 1fr;
+    /* Otra forma de hacerlo */
+    grid-template-columns: auto auto auto;
+
+    grid-template-rows: repeat(3, 1fr);
+
+
+    /* implicit grid */
+    grid-auto-rows: 1fr; /* Se reestablece el valor de las filas en 4 para poder
+    añadir el div 10 */
+}
+
+div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: purple;
+    color: white;
+}

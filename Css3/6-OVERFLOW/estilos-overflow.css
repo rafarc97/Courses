@@ -1,0 +1,26 @@
+*{
+    font-family: cursive;
+    font-weight: 100;
+    font-size: 40px;
+    transition: all 1.2s;
+}
+
+
+div{
+    margin: auto;
+    margin-top: 50px;
+    width: 320px;
+    height: 350px;
+    border: 4px solid red;
+    background: orange;
+
+    overflow: inherit; /* (la que viene por defecto) */
+    
+    /* si el contenido de dentro de la caja es más grande,
+    genera un scroll */
+    overflow: auto; 
+
+    /* Lo que no cabe en la caja se recorta y no sobresale como en inherit,
+    pero tampoco se crea un scroll */
+    overflow: hidden;
+}
