@@ -21,7 +21,9 @@
      #git log (nos da una lista de todos los commits con sus respectiva info)
      #git log --oneline (para ver solo la primera línea de los comentarios de cada commit si es que tuvieran una descripción muy grande)
      #q (para salir del modo visualización de commits)
-     #git log --oneline --decorate (para que nos salga + información sobre las ramas etc de los commits)
+     #git log --oneline --decorate (para que nos salga info sobre los commits de la rama actual en la que estás trabajando)
+     #git log --oneline --decorate --all(para que nos salga info sobre todos los commits de todas las ramas)
+     #git log --oneline --decorate --all --graph(para que nos salga info sobre todos los commits de todas las ramas con un grafo para visualizarlo mejor)
 
 
 
