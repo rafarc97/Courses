@@ -1,43 +1,51 @@
------------------------------------------------
-//////////GIT//////////
------------------------------------------------
--GIT: sistema de control de versiones
-#git help (comando info git)
------------------------------------------------
-//////////CONFIGURACIÓN INICIAL//////////
------------------------------------------------
-#git config --global user.name "rafarc97"
-#git config --global user.email "rafa.rodricalve@alum.uca.es"
-#git config --global color.ui true #Activamos los colores (para ver mejor los resultados arrojados por github)
-#git config --global --list (comprobar las configuraciones realizadas anteriormente)
------------------------------------------------
-//////////PRIMER PROYECTO//////////
------------------------------------------------
+--------------------------------------------------------
+//////////GIT: sistema control de versiones//////////
+--------------------------------------------------------
+     Autor: Rafael Rodríguez Calvente
+     Contacto: rafaelrodriguezcalvente@gmail.com || rafacalventeweb.com 
 
-#git init (marca el inicio de nuestro proyecto en el directorio donde nos encontramos, esto creará una carpeta .git (oculta en Linux) en la carpeta donde nos encontremos que será donde se almacenará todo lo que esté dentro de dicho repositorio de Github.
 
-#git status (nos dice el estado de nuestro proyecto/repositorio)
--COMMIT: cambios registrados en nuestro repositorio.
 
-#git add file_name (indica que git conoce qué archivos hemos modificado)
-*#git add -A (le decimos)
--UNTRACKED FILES: git sabe que he hecho un cambio en un archivo pero no le he dicho que me lo registre, es decir, no he hecho git add file_name. Haciendo git status nos saldrá en rojo, pero tras hacer el git add nos saldrá en verde y el git status nos indicará que dicho archivo se ha metido en el STAGE: la lista de cambios que están preparados para ser enviados al siguiente commit que hagamos.
+
+------------------------------------------------------------
+//////////COMANDOS INICIALES/BÁSICOS/CONFIGURACIÓN//////////
+------------------------------------------------------------
+     #git (comando info git)
+     #git help (comando info git = #git)
+     #git config --global user.name "rafarc97"
+     #git config --global user.email "rafa.rodricalve@alum.uca.es"
+     #git config --global color.ui true #Activamos los colores (para ver mejor los resultados arrojados por github)
+     #git config --global --list (comprobar las configuraciones realizadas anteriormente)
+     #git init (marca el inicio de nuestro proyecto en el directorio donde nos encontramos, esto creará una carpeta .git (oculta en Linux) en la carpeta donde nos encontremos que será donde se almacenará todo lo que esté dentro de dicho repositorio de Github.
+     #git status (nos dice el estado de nuestro proyecto/repositorio)
+     #git log (nos da una lista de todos los commits con sus respectiva info)
+     #git log --oneline (para ver solo la primera línea de los comentarios de cada commit si es que tuvieran una descripción muy grande)
+     #q (para salir del modo visualización de commits)
+     #git log --oneline --decorate (para que nos salga + información sobre las ramas etc de los commits)
+
+
+
+
+----------------------------------------------------------------------
+//////////COMMIT: cambios registrados en nuestro repositorio//////////
+----------------------------------------------------------------------
+#git add file_name/. (indica que git conoce qué archivos hemos modificado, los añade al staging area)
+-UNTRACKED FILES: git sabe que he hecho un cambio en un archivo pero no le he dicho que me lo registre, es decir, no he hecho git add file_name. Haciendo git status nos saldrá en rojo, pero tras hacer el git add nos saldrá en verde y el git status nos indicará que dicho archivo se ha metido en el STAGE/TRACK: la lista de cambios que están preparados para ser enviados al siguiente commit que hagamos.
 
 #git diff: podemos ver los cambios que hemos hecho en nuestros archivos y que no se han registrado. Las líneas de código que hemos añadido saldrán en verde y con un + y las que hemos quitado en rojo y con un -
+
 ÍNDICE/INDEX = STAGE
 
+#git commit (se abre una ventana de texto para escribir un comentario completo de dicho commit)
+#git commit -m "comment" (guarda los cambios que estén en el STAGE y añade un comentario a dichos cambios)
 
-#git commit (se abre una ventana de texto para escribir el comentario de dicho commit)
-#git commit -m "comment_name" (guarda los cambios que estén en el STAGE y añade un comentario a dichos cambios)
 CAMBIOS OLVIDADOS (ÚLTIMA HORA):
 #git commit --amend (abre nueva ventana con el comentario del último commit realizado). Antes de usar este comando deberemos hacer un cambio en el archivo sobre el que estamos comiteando, y luego este cambio se introducirá dentro de este último commit sin necesidad de crear uno nuevo)
 #git commit --amend -m "new_comment_name" (modifica el comentario del último comentario realizado. también podemos utilizarlo por si en el último momento hemos olvidado añadir algo al código y queremos que se suba con el mismo commit para no tener que crear otro nuevo)
 Después de hacer el commit hacemos git status y veremos que nos indicará que no tenemos nada que comitear.
 git push origin master -f (la opción -f fuerza a que se suban esos cambios ya que git reconoce que los commits son iguales (los archivos) y no nos dejaría sin la opción -f)
 
-#git log (nos da una lista de todos los commits con sus respectiva info)
-#git log --oneline (para ver solo la primera línea de los comentarios de cada commit si es que tuvieran una descripción muy grande)
-#q (para salir del modo visualización de commits)
+
 
 //COMO REVERTIR CAMBIOS EN ARCHIVOS AL CUAL NO SE LE HA HECHO COMMIT
 Si hemos modificado un archivo, pero no hemos hecho el add, git se dará cuenta y podremos comprobarlo al hacer git status y saliendo en rojo el/los archivos modificados sin ser metidos aún en el STAGE (haciendo git diff podremos ver las líneas de código modificadas, en rojo las eliminas y en vede las añadidas). Si queremos revertir este cambio no registrado aún en el STAGE porque nos hallamos podidos equivocar tendremos que hacer git checkout -- file_name.
@@ -55,7 +63,6 @@ CONCLUSIÓN: el poder de los tipos de reset de menor a mayor intensidad es git r
 #git log --online | cat (para mantener los commits en pantalla mientrsa puedo ejecutar otros comandos abajo)
 #git diff hash_commit1 hash_commit2 (para lanzar las diferencias entre dos commits y poder comparar)
 #git diff HEAD~1 HEAD (compara el commit anterior con el actual, es otra manera de hacer lo visto en el comando anterior)
-#git log --oneline --decorate (para que nos salga + información sobre las ramas etc de los commits)
 
 Imaginemos que tengo un fichero prueba y hemos añadido 5 commits los cuales cada uno de ellos han hecho:
 
