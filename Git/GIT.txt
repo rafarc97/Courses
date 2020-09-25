@@ -1,6 +1,6 @@
---------------------------------------------------------
+-----------------------------------------------------
 //////////GIT: sistema control de versiones//////////
---------------------------------------------------------
+-----------------------------------------------------
      Autor: Rafael Rodríguez Calvente
      Contacto: rafaelrodriguezcalvente@gmail.com || rafacalventeweb.com 
 
@@ -30,7 +30,8 @@
 //////////COMMIT: cambios registrados en nuestro repositorio//////////
 ----------------------------------------------------------------------
 #git add file_name/. (indica que git conoce qué archivos hemos modificado, los añade al staging area)
--UNTRACKED FILES: git sabe que he hecho un cambio en un archivo pero no le he dicho que me lo registre, es decir, no he hecho git add file_name. Haciendo git status nos saldrá en rojo, pero tras hacer el git add nos saldrá en verde y el git status nos indicará que dicho archivo se ha metido en el STAGE/TRACK: la lista de cambios que están preparados para ser enviados al siguiente commit que hagamos.
+
+UNTRACKED FILES: git sabe que he hecho un cambio en un archivo pero no le he dicho que me lo registre, es decir, no he hecho git add file_name. Haciendo git status nos saldrá en rojo, pero tras hacer el git add nos saldrá en verde y el git status nos indicará que dicho archivo se ha metido en el STAGE/TRACK: la lista de cambios que están preparados para ser enviados al siguiente commit que hagamos.
 
 #git diff: podemos ver los cambios que hemos hecho en nuestros archivos y que no se han registrado. Las líneas de código que hemos añadido saldrán en verde y con un + y las que hemos quitado en rojo y con un -
 
@@ -40,26 +41,42 @@
 #git commit -m "comment" (guarda los cambios que estén en el STAGE y añade un comentario a dichos cambios)
 
 CAMBIOS OLVIDADOS (ÚLTIMA HORA):
-#git commit --amend (abre nueva ventana con el comentario del último commit realizado). Antes de usar este comando deberemos hacer un cambio en el archivo sobre el que estamos comiteando, y luego este cambio se introducirá dentro de este último commit sin necesidad de crear uno nuevo)
-#git commit --amend -m "new_comment_name" (modifica el comentario del último comentario realizado. también podemos utilizarlo por si en el último momento hemos olvidado añadir algo al código y queremos que se suba con el mismo commit para no tener que crear otro nuevo)
-Después de hacer el commit hacemos git status y veremos que nos indicará que no tenemos nada que comitear.
+#git commit --amend (abre nueva ventana con el comentario del último commit realizado). Antes de usar este comando deberemos hacer un cambio en el archivo sobre el que estamos comiteando, y luego este cambio se introducirá dentro de este último commit sin necesidad de crear un nuevo commit)
+#git commit --amend -m "new_comment_name" (modifica el comentario del último comentario realizado. También podemos utilizarlo por si en el último momento hemos olvidado añadir algo al código y queremos que se suba con el mismo commit para no tener que crear otro nuevo). Después de hacer el commit hacemos git status y veremos que nos indicará que no tenemos nada que comitear.
+
 git push origin master -f (la opción -f fuerza a que se suban esos cambios ya que git reconoce que los commits son iguales (los archivos) y no nos dejaría sin la opción -f)
 
 
 
-//COMO REVERTIR CAMBIOS EN ARCHIVOS AL CUAL NO SE LE HA HECHO COMMIT
-Si hemos modificado un archivo, pero no hemos hecho el add, git se dará cuenta y podremos comprobarlo al hacer git status y saliendo en rojo el/los archivos modificados sin ser metidos aún en el STAGE (haciendo git diff podremos ver las líneas de código modificadas, en rojo las eliminas y en vede las añadidas). Si queremos revertir este cambio no registrado aún en el STAGE porque nos hallamos podidos equivocar tendremos que hacer git checkout -- file_name.
-Si hemos modificado un archivo y hemos hecho el add, podremos comprobar con git status como nos saldrá dicho archivo en verde lo cual nos indicará que está ya metido en el STAGE listo para ser comiteado. Pero si queremos revertir este cambio por alguna equivocación haremos git reset HEAD file_name, y tras ello volveremos a mirar en git status como ahora sale en rojo el archivo el cual sigue estando modificado pero ahora ya está fuera del STAGE, por lo tanto ahora haremos git checkout -- file_name para eliminar dicho cambio en el archivo. Luego de esto en git status no nos debería de salir nada.
 
-//COMO REVERTIR CAMBIOS EN ARCHIVOS AL CUAL SÍ SE LE HA HECHO COMMIT
-Si por ejemplo hemos hecho 6 commits en un archivo (hemos añadido 6 línes de código una por cada commit) y queremos volver a un commit anterior por ejemplo al 5º, tendremo que hacer git reset hash5º_commit (que lo podremos encontrar haciendo git log --oneline). Tras ello hacemos git log --oneline y veremos como el 6º commit ya no aparece, y si hacemos git status veremos como nos sale en rojo como que el archivo está modificado pero no lo hemos subido al STAGE, y si hacemos git diff veremos como aparece en verde que se ha añadido una 6ª línea, la correspondiente al commit que acabamos de eliminar, es decir con git reset hash_commit borramos el commit pero no modificamos el archivo en sí. Para modificar el archivo y dejarlo tal como estaba en el commit 5º hacemos git checkout -- file_name y así revertimos el cambio a como estaba en el commit 5º.
-Hay dos opciones más con reset_
--git reset --hard hash_commit: esto elimina el commit y también elimina los cambios del archivo (nos ahorramos el paso del checkout), si ahora hacemos git status no nos saldrá nada y consecuentemente en git diff tampoco.
--git reset --soft hash_commit: esto elimina el commit pero no elimina el cambio en el archivo, y por otro lado deja en el stage el cambio realizado en ese commit(como si se hubiera hecho un git add), es decir si hacemos git status nos saldrá en verde el cambio listo para ser comiteado. Tras esto ya podré decidir si sacar del STAGE dicho cambio con git reset HEAD file_name y luego deshacer el cambio con git checkout -- file_name o podré también comitearlo para dejarlo como estaba.
-CONCLUSIÓN: el poder de los tipos de reset de menor a mayor intensidad es git reset --soft hash_commit < git reset hash_commit < git reset --hard hash_commit
+--------------------------------------------------------------------------
+//////////REVERSIÓN CAMBIOS: como solucionar errores al comitear//////////
+--------------------------------------------------------------------------
 
 
-//COMO UTILIZAR REVERT: otro comando para deshacer cambios
+//////REVERTIR CAMBIOS EN ARCHIVOS SIN HABER HECHO COMMIT
+          Si hemos modificado un archivo, pero no hemos hecho el add, git se dará cuenta y podremos comprobarlo al hacer git status y saliendo en rojo el/los archivos modificados sin ser metidos aún en el STAGE (haciendo git diff podremos ver las líneas de código modificadas, en rojo las eliminas y en vede las añadidas). Si queremos revertir este cambio no registrado aún en el STAGE porque nos hallamos podidos equivocar tendremos que hacer 
+               #git checkout -- file_name.
+     
+          Si hemos modificado un archivo y hemos hecho el add, podremos comprobar con git status como nos saldrá dicho archivo en verde lo cual nos indicará que está ya metido en el STAGE listo para ser comiteado. Pero si queremos revertir este cambio por alguna equivocación haremos 
+               #git reset HEAD file_name
+               , y tras ello volveremos a mirar en git status como ahora sale en rojo el archivo el cual sigue estando modificado pero ahora ya está fuera del STAGE, por lo tanto ahora haremos 
+               #git checkout -- file_name para eliminar dicho cambio en el archivo. Luego de esto en git status no nos debería de salir nada.
+
+     Ejemplo práctico: 
+          Si por ejemplo hemos hecho 6 commits en un archivo (hemos añadido 6 línes de código una por cada commit) y queremos volver a un commit anterior por ejemplo al 5º, tendremo que hacer git reset 5º_hash_commit (que lo podremos encontrar haciendo git log --oneline). Tras ello hacemos git log --oneline y veremos como el 6º commit ya no aparece, y si hacemos git status veremos como nos sale en rojo como que el archivo está modificado pero no lo hemos subido al STAGE, y si hacemos git diff veremos como aparece en verde que se ha añadido una 6ª línea, la correspondiente al commit que acabamos de eliminar, es decir con git reset hash_commit borramos el commit pero no modificamos el archivo en sí. Para modificar el archivo y dejarlo tal como estaba en el commit 5º hacemos git checkout -- file_name y así revertimos el cambio a como estaba en el commit 5º.
+
+
+//////REVERTIR CAMBIOS EN ARCHIVOS HABIENDO HECHO COMMIT
+          Hay dos opciones más con reset:
+               -git reset --soft hash_commit: esto elimina el commit pero no elimina el cambio en el archivo, y por otro lado deja en el stage el cambio realizado en ese commit(como si se hubiera hecho un git add), es decir si hacemos git status nos saldrá en verde el cambio listo para ser comiteado. Tras esto ya podré decidir si sacar del STAGE dicho cambio con git reset HEAD file_name y luego deshacer el cambio con git checkout -- file_name o podré también comitearlo para dejarlo como estaba.
+               -git reset --hard hash_commit: esto elimina el commit y también elimina los cambios del archivo (nos ahorramos el paso del checkout), si ahora hacemos git status no nos saldrá nada y consecuentemente en git diff tampoco.
+
+//////CONCLUSIÓN: el poder de los tipos de reset de menor a mayor intensidad es git reset --soft hash_commit < git reset hash_commit < git reset --hard hash_commit
+
+
+
+//////COMO UTILIZAR REVERT: otro comando para deshacer cambios
 #git log --online | cat (para mantener los commits en pantalla mientrsa puedo ejecutar otros comandos abajo)
 #git diff hash_commit1 hash_commit2 (para lanzar las diferencias entre dos commits y poder comparar)
 #git diff HEAD~1 HEAD (compara el commit anterior con el actual, es otra manera de hacer lo visto en el comando anterior)
