@@ -29,6 +29,8 @@
 
 #git commit (se abre una ventana de texto para escribir el comentario de dicho commit)
 #git commit -m "comment_name" (guarda los cambios que estén en el STAGE y añade un comentario a dichos cambios)
+CAMBIOS OLVIDADOS (ÚLTIMA HORA):
+#git commit --amend (abre nueva ventana con el comentario del último commit realizado). Antes de usar este comando deberemos hacer un cambio en el archivo sobre el que estamos comiteando, y luego este cambio se introducirá dentro de este último commit sin necesidad de crear uno nuevo)
 #git commit --amend -m "new_comment_name" (modifica el comentario del último comentario realizado. también podemos utilizarlo por si en el último momento hemos olvidado añadir algo al código y queremos que se suba con el mismo commit para no tener que crear otro nuevo)
 Después de hacer el commit hacemos git status y veremos que nos indicará que no tenemos nada que comitear.
 git push origin master -f (la opción -f fuerza a que se suban esos cambios ya que git reconoce que los commits son iguales (los archivos) y no nos dejaría sin la opción -f)
