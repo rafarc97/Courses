@@ -29,22 +29,22 @@
 ----------------------------------------------------------------------
 //////////COMMIT: cambios registrados en nuestro repositorio//////////
 ----------------------------------------------------------------------
-#git add file_name/. (indica que git conoce qué archivos hemos modificado, los añade al staging area)
+     #git add file_name/. (indica que git conoce qué archivos hemos modificado, los añade al staging area)
 
-UNTRACKED FILES: git sabe que he hecho un cambio en un archivo pero no le he dicho que me lo registre, es decir, no he hecho git add file_name. Haciendo git status nos saldrá en rojo, pero tras hacer el git add nos saldrá en verde y el git status nos indicará que dicho archivo se ha metido en el STAGE/TRACK: la lista de cambios que están preparados para ser enviados al siguiente commit que hagamos.
+     UNTRACKED FILES: git sabe que he hecho un cambio en un archivo pero no le he dicho que me lo registre, es decir, no he hecho git add file_name. Haciendo git status nos saldrá en rojo, pero tras hacer el git add nos saldrá en verde y el git status nos indicará que dicho archivo se ha metido en el STAGE/TRACK: la lista de cambios que están preparados para ser enviados al siguiente commit que hagamos.
 
-#git diff: podemos ver los cambios que hemos hecho en nuestros archivos y que no se han registrado. Las líneas de código que hemos añadido saldrán en verde y con un + y las que hemos quitado en rojo y con un -
+     #git diff: podemos ver los cambios que hemos hecho en nuestros archivos y que no se han registrado. Las líneas de código que hemos añadido saldrán en verde y con un + y las que hemos quitado en rojo y con un -
 
-ÍNDICE/INDEX = STAGE
+     ÍNDICE/INDEX = STAGE
 
-#git commit (se abre una ventana de texto para escribir un comentario completo de dicho commit)
-#git commit -m "comment" (guarda los cambios que estén en el STAGE y añade un comentario a dichos cambios)
+     #git commit (se abre una ventana de texto para escribir un comentario completo de dicho commit)
+     #git commit -m "comment" (guarda los cambios que estén en el STAGE y añade un comentario a dichos cambios)
 
-CAMBIOS OLVIDADOS (ÚLTIMA HORA):
-#git commit --amend (abre nueva ventana con el comentario del último commit realizado). Antes de usar este comando deberemos hacer un cambio en el archivo sobre el que estamos comiteando, y luego este cambio se introducirá dentro de este último commit sin necesidad de crear un nuevo commit)
-#git commit --amend -m "new_comment_name" (modifica el comentario del último comentario realizado. También podemos utilizarlo por si en el último momento hemos olvidado añadir algo al código y queremos que se suba con el mismo commit para no tener que crear otro nuevo). Después de hacer el commit hacemos git status y veremos que nos indicará que no tenemos nada que comitear.
+     CAMBIOS OLVIDADOS (ÚLTIMA HORA):
+     #git commit --amend (abre nueva ventana con el comentario del último commit realizado). Antes de usar este comando deberemos hacer un cambio en el archivo sobre el que estamos comiteando, y luego este cambio se introducirá dentro de este último commit sin necesidad de crear un nuevo commit)
+     #git commit --amend -m "new_comment_name" (modifica el comentario del último comentario realizado. También podemos utilizarlo por si en el último momento hemos olvidado añadir algo al código y queremos que se suba con el mismo commit para no tener que crear otro nuevo). Después de hacer el commit hacemos git status y veremos que nos indicará que no tenemos nada que comitear.
 
-git push origin master -f (la opción -f fuerza a que se suban esos cambios ya que git reconoce que los commits son iguales (los archivos) y no nos dejaría sin la opción -f)
+     git push origin master -f (la opción -f fuerza a que se suban esos cambios ya que git reconoce que los commits son iguales (los archivos) y no nos dejaría sin la opción -f)
 
 
 
@@ -98,8 +98,11 @@ paso3
 paso4
 
 Imaginemos que quiero deshacer dicho cambio para poner de nuevo la antigua contraseña, para hacemos haremos:
-#git diff HEAD HEAD~4 (para comparar los cambios que se han hecho, nos deberá salir en rojo la antigua contraseña es decir la que se elimnó en el ultimo commit y en verde la que añadida en el ultimo commit)
-#git revert HEAD (puesto que quiero eliminar el último commit realizado. Al ejecutar este comando nos saldrá una ventana del nuevo commit que se creará para realizar dicho cambio, pero si queremos que se deshagan los cambios sin que automaticamente me bligue a subir el commit podemos utilizar la opción #git revert ---no-commit HEAD, ahora si hacemos git status podremos ver en verde el fichero prueba listo para ser commiteado. Esta última opción es útil cuando queremos revertir varios commits y queremos que todos ellos se guarden en un único nuevo commit, de lo contrario se crearían un nuevo commit por cada commit revertido. Si esto último fuera el caso, para finalizar y guardar todos los cambios realizados en cuanto a la reversión de los commits que hayamos querido hacer, pondremos #git revert --continue y se abrirá una ventana donde indicaremos la descripción del nuevo commit que se creará para realizar la reversión de todos los commits anteriores).
+     #git diff HEAD HEAD~4 (para comparar los cambios que se han hecho, nos deberá salir en rojo la antigua contraseña es decir la que se elimnó en el ultimo commit y en verde la que añadida en el ultimo commit)
+     #git revert HEAD (puesto que quiero eliminar el último commit realizado. Al ejecutar este comando nos saldrá una ventana del nuevo commit que se creará para realizar dicho cambio.
+Si queremos que se deshagan los cambios sin que automaticamente me obligue a subir el commit podemos utilizar la opción 
+     #git revert ---no-commit HEAD, ahora si hacemos git status podremos ver en verde el fichero prueba listo para ser commiteado. Esta última opción es útil cuando queremos revertir varios commits y queremos que todos ellos se guarden en un único nuevo commit, de lo contrario se crearían un nuevo commit por cada commit revertido. Para finalizar y guardar todos los cambios realizados en cuanto a la reversión de los commits que hayamos querido hacer, pondremos 
+     #git revert --continue y se abrirá una ventana donde indicaremos la descripción del nuevo commit que se creará para realizar la reversión de todos los commits anteriores).
 
 
 
