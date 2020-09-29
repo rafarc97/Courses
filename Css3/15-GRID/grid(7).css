@@ -4,7 +4,7 @@ main{
     height: 100vh;
     grid-gap: 10px;
     grid-template-columns: 
-        /* repeat(8,1fr); */
+        repeat(8,1fr);
 
         /* Otra forma de hacerlo */
 
@@ -18,7 +18,7 @@ main{
         /* repeat(8, minmax(min-content, 30%)); */ /* Cuando se salga las eltras de dentro crea el scroll */
 
         /* 8 columnas con un máximo y mínimo marcado por su contenido */
-        repeat(8, minmax(min-content, max-content)); /* Ahora nunca será más grande el div de lo que ocupa las letras */
+        /* repeat(8, minmax(min-content, max-content)); */ /* Ahora nunca será más grande el div de lo que ocupa las letras */
 
     }
 

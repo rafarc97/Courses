@@ -1,0 +1,52 @@
+/* Para las animaciones necesitamos siempre definir el @Keyframes */
+
+main{
+    font-family: sans-serif;
+}
+
+.container{
+    height: 100vh;
+    background: lightgreen;
+    padding: 30px;
+    
+}
+
+.caja{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    margin: 20px;
+    background: #025;
+    color: #fff;
+    animation-name: desplazarse;
+    animation-duration: 0.8s;
+    animation-timing-function: ease;
+    /* Cuantas veces se repìte la animación */
+    animation-iteration-count: 3;
+    /* animation-iteration-count: infinite; */
+    /* animation-iteration-count: 1; */
+    animation-direction: normal; /* por defecto */
+    /* animation-direction: reverse; */ /* al revés */
+    /* animation-direction: alternate-reverse; */ /* al revés alternando */
+    animation-direction: alternate;
+
+    /* Sirve solo para direction normal y se queda fijado a la derecha la caja*/
+    animation-fill-mode: forwards; 
+    position: relative;
+}
+
+@keyframes desplazarse {
+    0%{
+        left: 0;
+    }
+    50%{
+        background-color: lightslategray;
+    }
+
+    to{
+        background-color: red;
+        left: 80%;
+    }
+}

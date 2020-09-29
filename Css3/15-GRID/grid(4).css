@@ -16,11 +16,11 @@ main{
     grid-template-rows: 
         [header-start] 1fr
         [header-end contenido-start] 2fr
-        [footer-start] 1fr
+        [contenido-end footer-start] 1fr
         [footer-end];
 }
 
-main > *{
+main > * {
     font-family: sans-serif;
     background-color: goldenrod;
     display: flex;
@@ -32,6 +32,16 @@ main > *{
 /* Además le decimos que ocupe 2 */
 header{
     grid-column: sidebar-start / contenido-end; 
+}
+
+aside{
+    grid-column: sidebar-start / sidebar-end;
+    grid-row: contenido-start / contenido-end;
+}
+
+article{
+    grid-column: contenido-start / contenido-end;
+    grid-row: contenido-start / contenido-end;
 }
 
 /* -1 le indica que llegue hasta el final */

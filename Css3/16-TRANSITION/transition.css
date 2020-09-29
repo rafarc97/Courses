@@ -1,0 +1,112 @@
+/* 
+
+Tenemos que darle al menos dos propiedades que son: 
+
+transition-property: property/ies - all - none;
+transition-duration: duration/s;
+
+si no, no puede realizarse la trnasición.
+
+*/
+
+/* 
+
+
+
+*/
+
+main{
+    font-family: sans-serif;
+}
+
+.container{
+    height: 100vh;
+    background: lightgreen;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.caja{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    background: #025;
+    color: #fff;
+    margin: 5px;
+    position: relative;
+    left: 0;
+
+    transition-property: all;
+    transition-duration: 1s;
+
+    /* Para indicar la o las props que sufrirán las transiciones */
+    
+    /* transition-property: background; */
+
+    /* Para indicar el tiempo que durará la trnasición */
+    
+
+    /* Tarda 1s en comenzar a realizar la transición  a partir de que pongamos el ratón ecnima */
+    /* transition-delay: 1s; */
+
+    /* transition-timing-function: linear; */
+    /* No recomendable por consumo de recursos, mejor indicar que props exactas
+    queremos que se le aplique la transición */
+    /* transition: all 1s; */ 
+    /* transition: background 1s ease; */
+}
+
+
+/* Esta prop afecta sobre la aceleración de la transición */
+/* .container > :nth-child(2){
+    transition-timing-function: ease;
+}
+.container > :nth-child(3){
+    transition-timing-function: ease-in;
+}
+.container > :nth-child(4){
+    transition-timing-function: ease-out;
+}
+.container > :nth-child(5){
+    transition-timing-function: ease-in-out;
+} */
+
+/* .caja:hover{
+    background: green;
+    color: red;
+    left: 80%;
+} */
+
+.container:hover > .caja{
+    left: 80%;
+    background: coral;
+    border: 10px solid black
+}
+
+.caja:first-child{
+    transition-timing-function: linear;
+}
+
+.caja:nth-child(2){
+    transition-timing-function: ease;
+}
+
+
+.caja:nth-child(3){
+    transition-timing-function: ease-in;
+}
+
+
+.caja:nth-child(4){
+    transition-timing-function: ease-out;
+}
+
+
+.caja:nth-child(5){
+    transition-timing-function: ease-in-out;
+}
+

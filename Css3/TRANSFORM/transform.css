@@ -1,0 +1,156 @@
+.container{
+    padding: 10px 5px;
+    background: #86f;
+}
+
+.caja{
+    background: #025;
+    height: 80px;
+    width: 80px;
+    margin: 50px;
+    border: 5px solid white;
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+
+
+    /* TRANSFORM */
+    /* transform: translate(50px); */ /* eje X por defecto */
+    /* transform: translateX(50px);
+    transform: translateY(50px); */
+    
+
+    /* transform: scale(1);
+    transform: scale(1.5);  *//* Eje X e Y por defecto */
+/* 
+    transform: scaleX(1.5);
+    transform: scaleY(1.5);  */
+    
+    transform: skew(30deg); /* = skewX */
+    transform: skewX(30deg);
+    transform: skewY(30deg);
+
+}
+
+.caja2{
+    background: #025;
+    height: 80px;
+    width: 80px;
+    margin: 50px;
+    display: flex;
+    color: #fff;
+    border: 5px solid white;
+    justify-content: center;
+    align-items: center;
+
+    transition: transform 1s;
+}
+
+.caja2:hover{
+    transform: scaleX(2);
+}
+
+.caja2{
+    background: #025;
+    height: 80px;
+    width: 80px;
+    margin: 50px;
+    display: flex;
+    color: #fff;
+    border: 5px solid white;
+    justify-content: center;
+    align-items: center;
+
+    transition: transform 1s;
+}
+
+.caja3{
+    background: #025;
+    height: 80px;
+    width: 80px;
+    margin: 50px;
+    display: flex;
+    color: #fff;
+    border: 5px solid white;
+    justify-content: center;
+    align-items: center;
+
+    transition: transform 1s;
+}
+
+.caja3:hover{
+    transform: scaleX(2) translate(40px);
+}
+
+.caja4{
+    background: #025;
+    height: 80px;
+    width: 80px;
+    margin: 50px;
+    display: flex;
+    color: #fff;
+    border: 5px solid white;
+    justify-content: center;
+    align-items: center;
+
+    transition: transform 1s;
+}
+
+.caja4:hover{
+    transform: scale(2);
+}
+
+.caja5{
+    background: #025;
+    height: 80px;
+    width: 80px;
+    margin: 50px;
+    display: flex;
+    color: #fff;
+    border: 5px solid white;
+    justify-content: center;
+    align-items: center;
+
+    transition: transform 1s;
+}
+
+.caja5:hover{
+    transform: skew(30deg);
+}
+
+.caja6{
+    background: #025;
+    height: 80px;
+    width: 80px;
+    margin: 50px;
+    display: flex;
+    color: #fff;
+    border: 5px solid white;
+    justify-content: center;
+    align-items: center;
+
+    transition: transform 1s;
+}
+
+.caja6:hover{
+    transform: scaleX(2);
+}
+
+.caja7{
+    background: #025;
+    height: 80px;
+    width: 80px;
+    margin: 50px;
+    display: flex;
+    color: #fff;
+    border: 5px solid white;
+    justify-content: center;
+    align-items: center;
+
+    transition: transform 1s;
+}
+
+.caja7:hover{
+    transform: scaleX(2);
+}

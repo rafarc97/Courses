@@ -1,0 +1,29 @@
+main{
+    height: 100vh;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(30px,auto));
+    
+}
+
+/* main > * {
+    order: 1;
+}
+ */
+/* Todos los grid items tienen un order: 0 por defecto, entonces podemos
+modificarlo para que si a uno de ellos le damos un order: 1; se posicione 
+más a la derecha o arriba en función de como esté definido */
+div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: goldenrod;
+    border: 1px solid black;
+}
+
+div:nth-child(4){
+    background-color: purple;
+    color: white;
+    order: 1; /* Se posiciona a la derecha */
+    /* order: -1; */ /* Se posiciona a la izquierda */
+}

@@ -16,6 +16,11 @@ main{
     grid-template-rows: repeat(3, 1fr);
 
 
+    /* Como podemos comprobar, si comentamos grid-auto-rows: 1fr; los 10 divs no caben
+    porque hemos indicado que queremos que hayan 3 filas y 3 columnas con 1fr (33%) del
+    vh y vw cada una, por lo que el div nº 10 para introducirlo y reestructurar el tamaño
+    de todas las cajas tenemos que añadir el grid-auto-rows: 1fr; */
+
     /* implicit grid */
     grid-auto-rows: 1fr; /* Se reestablece el valor de las filas en 4 para poder
     añadir el div 10 */
